@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id='map' style='width:600px; height:400px;'></div>
+</body>
+<script src="https://webapi.amap.com/maps?key=98c48a99c16b27832d280541b026eb6a&v=2.0"></script>
+<script src="https://webapi.amap.com/loca?key=98c48a99c16b27832d280541b026eb6a&v=2.0"></script>
+<script>
+    //创建map，定义三个参数
+    const map = new AMap.Map('map', {
+    mapStyle: 'amap://styles/grey',
+    zoom: 4,
+    center: [116.391746,39.928614]
+    });
+    //创建可视化层，散点图层
+    var loca = new Loca.Container({
+        map:map
+    });
+    
+    //创建可视化图层和数据源
+        //创建可视化图层
+        var pointLayer = new Loca.PointLayer({
+            zIndex:10,
+            opacity:1,
+            visible:true,
+            blend:'lighter',
+        });
+        //创建数据源
+        var dataSource = new Loca.GeoJSONSource({
+            "data":"FeatureCollection",
+            "feature":[{
+                "type":"Feature",
+                "properties":{},
+                "geometry":{
+                    "type":"Point",
+                    "coordinates":[
+                        116.40014,
+                        39.909736
+                    ]
+                }
+            }]
+        });
+    // 关联数据和演示
+    // 配置样式
+    pointLayer.setStyle({
+        radius:30,
+        color:'red',
+        borderWidth:10,
+        borderColor:"#fff",
+        unit:'px'
+    })
+    // 添加到图层上
+    loca.add(pointLayer);
+</script>
+</html>
